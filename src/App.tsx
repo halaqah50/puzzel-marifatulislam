@@ -12,9 +12,18 @@ import { QuestionModal } from './components/QuestionModal';
 import { VictoryModal } from './components/VictoryModal';
 import { LandmarkInfoModal } from './components/LandmarkInfoModal';
 import { RulesModal } from './components/RulesModal';
+import { PasswordAuthGate } from './components/PasswordAuthGate';
 import { Sparkles, Eye, BookOpen, RefreshCw } from 'lucide-react';
 
 export default function App() {
+  // Password Auth State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return (
+      localStorage.getItem('marifatul_auth') === 'true' ||
+      sessionStorage.getItem('marifatul_auth') === 'true'
+    );
+  });
+
   // Game Setup State
   const [selectedLandmark, setSelectedLandmark] = useState<Landmark>(LANDMARKS[0]);
   const [selectedGrid, setSelectedGrid] = useState<GridDimension>(GRID_CONFIGS[0]); // 3x3 default
@@ -224,6 +233,16 @@ export default function App() {
     setIsMuted(muted);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('marifatul_auth');
+    sessionStorage.removeItem('marifatul_auth');
+    setIsAuthenticated(false);
+  };
+
+  if (!isAuthenticated) {
+    return <PasswordAuthGate onAuthenticate={() => setIsAuthenticated(true)} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#0C0C0C] text-[#EDEDED] flex flex-col font-sans selection:bg-[#C5A059] selection:text-[#0C0C0C]">
       {/* App Header Bar */}
@@ -236,6 +255,7 @@ export default function App() {
         onOpenPreview={() => setShowPreviewModal(true)}
         onOpenInfo={() => setShowInfoModal(true)}
         onRestart={() => setGameStatus('PREVIEW')}
+        onLogout={handleLogout}
       />
 
       {/* Main Game Arena */}
