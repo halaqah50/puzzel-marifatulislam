@@ -1,5 +1,5 @@
 import React from 'react';
-import { Volume2, VolumeX, HelpCircle, Eye, RefreshCw, BookOpen, Sparkles, Trophy } from 'lucide-react';
+import { Volume2, VolumeX, HelpCircle, Eye, RefreshCw, BookOpen, Trophy, MoonStar, Lock } from 'lucide-react';
 import { Landmark, GameStats } from '../types';
 import { soundManager } from '../utils/audio';
 
@@ -12,6 +12,7 @@ interface HeaderProps {
   onOpenPreview: () => void;
   onOpenInfo: () => void;
   onRestart: () => void;
+  onLogout: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -22,7 +23,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenRules,
   onOpenPreview,
   onOpenInfo,
-  onRestart
+  onRestart,
+  onLogout
 }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -39,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Brand & Theme Title */}
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded bg-[#1F1F1F] border border-[#C5A059]/40 flex items-center justify-center text-[#C5A059] shadow-inner">
-            <Sparkles className="w-5 h-5" />
+            <MoonStar className="w-5 h-5 text-[#C5A059]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -117,6 +119,15 @@ export const Header: React.FC<HeaderProps> = ({
             className="p-2 rounded bg-[#C5A059]/10 hover:bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/40 transition-all cursor-pointer"
           >
             <RefreshCw className="w-4 h-4" />
+          </button>
+
+          <button
+            onClick={onLogout}
+            title="Kunci Halaman (Keluar)"
+            className="p-2 rounded bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 transition-all cursor-pointer flex items-center gap-1 text-xs"
+          >
+            <Lock className="w-4 h-4" />
+            <span className="hidden xl:inline">Kunci</span>
           </button>
         </div>
       </div>
