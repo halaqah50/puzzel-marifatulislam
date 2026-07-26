@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Ma\u0027rifatul Islam - Game Puzzle Interaktif",
+  "description": "Game puzzle edukasi Islami interaktif dengan 130+ soal Ma\u0027rifatul Islam dan landmark masjid terkenal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
